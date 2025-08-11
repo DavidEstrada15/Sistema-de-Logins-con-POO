@@ -2,26 +2,9 @@ class Usuario {
     constructor(usuario) {
         this.nombre= usuario.nombre,
         this.edad= usuario.edad,
-        this.correo= usuario.correo
-        this.image= usuario.image
-    }
-
-    crearusuario =() => {
-        const article= document.createElement("article")
-        const nombreelement= document.createElement("h2")
-        nombreelement.innerText= this.nombre
-        const edadelement= document.createElement('h3')
-        edadelement.innerText= this.edad
-        const correoelement= document.createElement('h3')
-        correoelement.innerText= this.correo
-        const imagelement= document.createElement("img")
-        imagelement.src= this.image
-
-        article.appendChild(nombreelement)
-        article.appendChild(edadelement)
-        article.appendChild(correoelement)
-        article.appendChild(imagelement)
-        return article
+        this.correo= usuario.correo,
+        this.image= usuario.image || "https://static.vecteezy.com/system/resources/thumbnails/021/548/095/small_2x/default-profile-picture-avatar-user-avatar-icon-person-icon-head-icon-profile-picture-icons-default-anonymous-user-male-and-female-businessman-photo-placeholder-social-network-avatar-portrait-free-vector.jpg",
+        this.id= `${Math.floor(Math.random() * 500) - Math.floor(Math.random() * 500)}`
     }
 }
 

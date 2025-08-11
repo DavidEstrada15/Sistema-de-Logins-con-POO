@@ -9,17 +9,20 @@ body{
     height: 100vh;
     place-content: center;
     position: relative;
+    background-image: url(https://unblast.com/wp-content/uploads/2021/01/Space-Background-Images.jpg)
 }
 
 main{
     display: flex;
     flex-direction: column;
     place-self: center;
-    background-image: url(https://imgs.search.brave.com/riN3Y5QZ4qdUm2ztlyixU0dgB1duwqJWMACBu76LANE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hLnRo/dW1icy5yZWRkaXRt/ZWRpYS5jb20vekRP/RkpUWGQ2Zm1sRDU4/VkRHeXBpVjk0TGVm/bHoxMXdveG1nYkdZ/NnBfNC5wbmc);
+    background-image: url(https://github.blog/wp-content/uploads/2024/06/AI-DarkMode-4.png?resize=800%2C425);
     width: 400px;
     height: 500px;
-    background-size: contain;
+    background-size: cover;
+    background-position: center;
     position: relative;
+    background-repeat: no-repeat;
 }
 
 main h2{
@@ -42,7 +45,20 @@ main .containerinfo{
     display: flex;
     place-content: center;
     gap: 20px;
-    backdrop-filter: blur(50px);
+}
+
+.containerinfo::after{
+    content: "";
+    position: absolute;
+    width: 100%;    
+    height: 130%;
+    backdrop-filter: blur(10px);
+    mask-image: linear-gradient(to top, black 80%, rgba(0, 0, 0, 0), transparent);
+    z-index: 1;
+}
+
+.containerinfo *{
+    z-index: 2;
 }
 
 button{
@@ -77,7 +93,8 @@ section{
     bottom: 20vh;
 width: 50%;
 height: 70%;
-    
+    z-index: 3;
+    transition: all 0.5s ease;
 }
 
 .accountscontainer{
@@ -103,4 +120,26 @@ section button{
     justify-content: space-between;
     width: 100%;
     padding: 20px;
+}
+
+@keyframes aparecer {
+    0%{
+        opacity: 0.5;
+        display: flex;
+    }
+
+    100%{
+opacity: 1.0;
+    }
+}
+
+@keyframes desaparecer {
+    0%{
+        opacity: 1.0;
+    }
+
+    100%{
+        opacity: 0;
+        display: none;
+    }
 }
