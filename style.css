@@ -39,9 +39,8 @@ main h3{
 
 main .containerinfo{
     position: absolute;
-    top: 60vh;
+    top: 65vh;
     display: flex;
-    place-content: center;
     gap: 20px;
 }
 
@@ -74,6 +73,8 @@ main .containerinfo div img{
     width: 40px;
     height: 40px;
     border-radius: 20px;
+    display: flex;
+    place-self: center;
 }
 
 .infoandimage{
@@ -82,6 +83,7 @@ main .containerinfo div img{
 }
 
 section{
+    opacity: 0;
     display: flex;
     flex-direction: column;
     border: 2px solid rgb(154, 20, 216);
@@ -183,6 +185,7 @@ section button:hover{
 
     100%{
 opacity: 1.0;
+display: flex;
     }
 }
 
@@ -199,4 +202,71 @@ opacity: 1.0;
 
 ::-webkit-scrollbar{
     display: none;
+}
+
+@media screen and (max-width: 765px) {
+   section{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(154, 20, 216);
+    place-content: center;
+    position: absolute;
+    backdrop-filter: blur(10px);
+    left: 5vw;
+    bottom: 20vh;
+width: 85%;
+height: 70%;
+    z-index: 3;
+    transition: all 0.5s ease;
+    border-radius: 20px;
+}
+   
+    section button{
+    place-self: center;
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    font-size: 15px;
+    transition: all 0.5s ease;
+    border: 2px solid rgb(158, 4, 230);
+    border-radius: 20px;
+}
+.account{
+    gap: 5px;
+    padding: 10px;
+    margin-left: 0px;
+    display: flex;
+    flex-direction: column;
+}
+.infocontainer{
+    gap: 0px;
+    flex-direction: column;
+}
+
+.buttonkill{
+    color: red;
+    position: absolute;
+    left: 100%;
+    border: none;
+    background-color: none;
+}
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+ section{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgb(154, 20, 216);
+    place-content: center;
+    position: absolute;
+    backdrop-filter: blur(10px);
+    left: 5vw;
+    bottom: 20vh;
+width: 80%;
+height: 70%;
+    z-index: 3;
+    transition: all 0.5s ease;
+    border-radius: 20px;
+}   
 }

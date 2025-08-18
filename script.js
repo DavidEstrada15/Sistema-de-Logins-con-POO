@@ -15,23 +15,39 @@ const Emailtext= document.getElementById("Emailtext")
 buttonWindow.textContent= "Crear nuevo usuario"
 buttonkill.textContent= "X"
 let loggin= JSON.parse(localStorage.getItem("logginstatus")) || false
-if (loggin  == false) {
-    main.style.display= "none"
-    closeloggin.style.display= "none"
-    buttonkill.style.display= "none"
-    createmodel()
-}
+actualizarusuario()
+comprobarlogin()
 
 closeloggin.addEventListener("click", ()=>{
-    loggin= false
+    const mensajedealerta= confirm("Estas seguro de cerrar sesion ?")
+    if (mensajedealerta == true) {
+        loggin= false
     JSON.stringify(localStorage.setItem("logginstatus", loggin))
     location.reload()
+    }
+    
 })
 
-actualizarusuario()
+buttonWindow.addEventListener("click", ()=>{
+    let nombre= prompt("Ingresa tu nombre: ")
+    let edad= prompt("Ingresa tu edad: ")
+    let correo= prompt("Ingresa tu correo: ")
+    let image= prompt("Ingresa la url de tu imagen: ")
+    let password= prompt("Ingresa la contrasenia de tu usuario (Guardala bien)")
+    if (nombre != " " && edad != " " && correo != "" && password != "") {
+        controlador.addUser(nombre,edad,correo,image, password)
+    }else{
+        alert("No ingresaste la informacion correctamente")
+    }
+    
+})
+accountsbutton.addEventListener("click", ()=>{
+createmodel()
+})
 
 function createmodel() {
-const section = document.createElement("section")
+const section = document.querySelector("section")
+section.innerHTML= ``
     section.style.animation= " aparecer 0.5s ease both";
     const accountscontainer = document.createElement("div")
     const buttonscontainer= document.createElement("div")
@@ -53,29 +69,40 @@ const section = document.createElement("section")
         img.src= Usuario.image
         eraseacount.innerText= "Borrar usuario"
         infocontainer.addEventListener("click", () =>{
-        controlador.changeUser(Usuario.id)
+        const comprobarpassword = prompt("Ingresa la contrasenia")
+        if (comprobarpassword == Usuario.password) {
+                controlador.changeUser(Usuario.id)
         actualizarusuario()
         section.style.animation= " desaparecer 0.5s ease both";
         loggin = true
         JSON.stringify(localStorage.setItem("logginstatus", loggin))
         main.style.display= "flex"
         closeloggin.style.display= "block"
-        buttonkill.style.display= "block"})
+        buttonkill.style.display= "block"}else{
+            alert("Contrasenia incorrecta")
+        }
+            }
+                )
 
         eraseacount.addEventListener("click", ()=>{
-            controlador.removeUsers(Usuario)
-        section.style.animation= " desaparecer 0.5s ease both";    })
-        infocontainer.appendChild(img)
-        infocontainer.appendChild(infotextcontainer)
-        infotextcontainer.appendChild(name)
-        infotextcontainer.appendChild(email)
-        
-        account.appendChild(infocontainer)
-        if (loggin == true) {
-          account.appendChild(eraseacount)  
+            const confirmarborrar= confirm("Estas seguro de borrar el usuario ?")
+            if (confirmarborrar == true) {
+               controlador.removeUsers(Usuario)
+            section.style.animation= " desaparecer 0.5s ease both";  
+                }
         }
+        )
+    infocontainer.appendChild(img)
+    infocontainer.appendChild(infotextcontainer)
+    infotextcontainer.appendChild(name)
+    infotextcontainer.appendChild(email)
         
-        accountscontainer.appendChild(account)
+    account.appendChild(infocontainer)
+    if (loggin == true) {
+        account.appendChild(eraseacount)  
+    }
+        
+    accountscontainer.appendChild(account)
     });
     accountscontainer.classList.add("accountscontainer")
     buttonscontainer.appendChild(buttonWindow)
@@ -90,27 +117,22 @@ const section = document.createElement("section")
 })    
 }
 
-accountsbutton.addEventListener("click", ()=>{
-createmodel()
-
-})
-
-
-buttonWindow.addEventListener("click", ()=>{
-    let nombre= prompt("Ingresa tu nombre: ")
-    let edad= prompt("Ingresa tu edad: ")
-    let correo= prompt("Ingresa tu correo: ")
-    let image= prompt("Ingresa la url de tu imagen: ")
-    controlador.addUser(nombre,edad,correo,image)
-})
-
-
 function actualizarusuario() {
     main.style.backgroundImage= `url(${controlador.actualUser.image})`
     infoimage.src= controlador.actualUser.image
     Agetext.innerText= `${controlador.actualUser.edad} años`
     Emailtext.innerText= `Correo: ${controlador.actualUser.correo}`
     Nametext.innerText= controlador.actualUser.nombre
+}
+
+function comprobarlogin() {
+    if (loggin  == false) {
+    main.style.display= "none"
+    closeloggin.style.display= "none"
+    buttonkill.style.display= "none"
+    createmodel()
+}
+
 }
 
 function checkloggin() {
