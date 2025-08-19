@@ -1,6 +1,6 @@
 import Accountmanager from "./ManagerAccounts.js"
 
-const controlador= new Accountmanager
+const controlador= new Accountmanager()
 const main= document.querySelector("main")
 const infoimage= document.getElementById("infoimage")
 const accountsbutton= document.getElementById("accounts")
@@ -12,11 +12,32 @@ closeloggin.innerText= "Cerrar sesion"
 const Agetext= document.getElementById("Agetext")
 const Nametext= document.getElementById("Nametext")
 const Emailtext= document.getElementById("Emailtext")
+const editeacount= document.getElementById("editeacount")
 buttonWindow.textContent= "Crear nuevo usuario"
 buttonkill.textContent= "X"
 let loggin= JSON.parse(localStorage.getItem("logginstatus")) || false
 actualizarusuario()
 comprobarlogin()
+
+editeacount.addEventListener("click", ()=>{
+
+    const comprobarpassword = prompt("Ingresa la contrasenia")
+        if (comprobarpassword == controlador.getActualUsers().getpassword()) {        
+let nombre= prompt("Ingresa tu nombre: ")
+    let edad= prompt("Ingresa tu edad: ")
+    let correo= prompt("Ingresa tu correo: ")
+    let image= prompt("Ingresa la url de tu imagen: ")
+    let password= prompt("Ingresa la contrasenia de tu usuario (Guardala bien)")
+    if (nombre != " " && edad != " " && correo != "") {
+        controlador.editeactualuser(nombre,edad,correo,image, password)
+        actualizarusuario()
+    }else{
+        alert("No ingresaste la informacion correctamente")
+    }
+        }else{
+            alert("Contrasenia incorrecta")
+        } 
+})
 
 closeloggin.addEventListener("click", ()=>{
     const mensajedealerta= confirm("Estas seguro de cerrar sesion ?")
@@ -34,7 +55,7 @@ buttonWindow.addEventListener("click", ()=>{
     let correo= prompt("Ingresa tu correo: ")
     let image= prompt("Ingresa la url de tu imagen: ")
     let password= prompt("Ingresa la contrasenia de tu usuario (Guardala bien)")
-    if (nombre != " " && edad != " " && correo != "" && password != "") {
+    if (nombre != " " && edad != " " && correo != "") {
         controlador.addUser(nombre,edad,correo,image, password)
     }else{
         alert("No ingresaste la informacion correctamente")
@@ -70,8 +91,8 @@ section.innerHTML= ``
         eraseacount.innerText= "Borrar usuario"
         infocontainer.addEventListener("click", () =>{
         const comprobarpassword = prompt("Ingresa la contrasenia")
-        if (comprobarpassword == Usuario.password) {
-                controlador.changeUser(Usuario.id)
+        if (comprobarpassword == Usuario.getpassword()) {
+                controlador.changeUser(Usuario.getid())
         actualizarusuario()
         section.style.animation= " desaparecer 0.5s ease both";
         loggin = true
@@ -99,7 +120,7 @@ section.innerHTML= ``
         
     account.appendChild(infocontainer)
     if (loggin == true) {
-        account.appendChild(eraseacount)  
+        account.appendChild(eraseacount) 
     }
         
     accountscontainer.appendChild(account)
@@ -118,11 +139,11 @@ section.innerHTML= ``
 }
 
 function actualizarusuario() {
-    main.style.backgroundImage= `url(${controlador.actualUser.image})`
-    infoimage.src= controlador.actualUser.image
-    Agetext.innerText= `${controlador.actualUser.edad} años`
-    Emailtext.innerText= `Correo: ${controlador.actualUser.correo}`
-    Nametext.innerText= controlador.actualUser.nombre
+    main.style.backgroundImage= `url(${controlador.actualUser.getimage()})`
+    infoimage.src= controlador.actualUser.getimage()
+    Agetext.innerText= `${controlador.actualUser.getedad()} años`
+    Emailtext.innerText= `Correo: ${controlador.actualUser.getcorreo()}`
+    Nametext.innerText= controlador.actualUser.getnombre()
 }
 
 function comprobarlogin() {
