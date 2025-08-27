@@ -28,7 +28,7 @@ main{
 main h2{
     font-size: 30px;
     position: absolute;
-    bottom: 60vh;
+    bottom: 92%;
     text-align: center;
     width: 100%;
 }
@@ -39,7 +39,7 @@ main h3{
 
 main .containerinfo{
     position: absolute;
-    top: 65vh;
+    bottom: 0%;
     gap: 20px;
     display: flex;
 }
@@ -79,13 +79,11 @@ main .containerinfo div img{
 
 #editeacount{
     position: absolute;
-    left: 26.3vw;
+    left: 85%;
 }
 
 .textinfo{
-
 text-align: center;
-
 }
 .infoandimage{
     display: flex;
